@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    image: install-service-back:latest
+    build:
+      context: .
+    environment:
+    - DB_HOST=database:5432
+    - DB_USER=postgres
+    - DB_PASSWORD=password
+    - DB_SCHEMA=postgres
+    - instala_enable=false
+    - SWAGGER_CLIENT_ID=AAAR13b460630a24b5878e234cfae1268d78
+    - SWAGGER_SECRET_ID=5QkcwoWYYSzkS8dDxVDmH7pRLmD0DV2Jmi4pRdldLq7B5ip1HqXdejCpwBeOm7OX
+    ports:
+    - 8080:8080
+    links:
+    - db:database
+    depends_on:
+    - db
+  db:
+    image: postgres:9.5
+    environment:
+    - POSTGRES_DB=postgres-demo
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=password
+    ports:
+    - 5432:5432

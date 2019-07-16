@@ -1,0 +1,25 @@
+<configuration>
+    <if condition='isDefined("spring.profiles.active") || isDefined("${SPRING_PROFILES_ACTIVE}")'>
+        <then>
+            <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                    <includeMdcKeyName>x-correlation-id</includeMdcKeyName>
+                </encoder>
+            </appender>
+        </then>
+        <else>
+            <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                    <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %X{x-correlation-id} - %logger{36} - %msg%n</pattern>
+                </encoder>
+            </appender>
+        </else>
+    </if>
+
+    <logger name="jsonLogger" additivity="false" level="WARN">
+        <appender-ref ref="consoleAppender"/>
+    </logger>
+    <root level="INFO">
+        <appender-ref ref="consoleAppender"/>
+    </root>
+</configuration>
