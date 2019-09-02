@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: install-service-back:latest
+    image: audit-poc:latest
     build:
       context: .
     environment:
@@ -9,9 +9,8 @@ services:
     - DB_USER=postgres
     - DB_PASSWORD=password
     - DB_SCHEMA=postgres
-    - instala_enable=false
-    - SWAGGER_CLIENT_ID=AAAR13b460630a24b5878e234cfae1268d78
-    - SWAGGER_SECRET_ID=5QkcwoWYYSzkS8dDxVDmH7pRLmD0DV2Jmi4pRdldLq7B5ip1HqXdejCpwBeOm7OX
+    - SWAGGER_CLIENT_ID=toto
+    - SWAGGER_SECRET_ID=titi
     ports:
     - 8080:8080
     links:
@@ -21,7 +20,7 @@ services:
   db:
     image: postgres:9.5
     environment:
-    - POSTGRES_DB=postgres-demo
+      - POSTGRES_DB=postgres
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=password
     ports:
