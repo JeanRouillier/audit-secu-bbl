@@ -17,7 +17,7 @@ public class AuthenticationFacadeImpl implements AuthenticationFacade {
     return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
         .map(Authentication::getPrincipal)
         .filter(OpenIDUser.class::isInstance)
-        .map(principal -> (OpenIDUser) principal);
+        .map(OpenIDUser.class::cast);
   }
 
   @Override
