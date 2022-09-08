@@ -27,7 +27,7 @@
         <logback.version>1.2.3</logback.version>
         <assertj.version>3.12.2</assertj.version>
         <assertj-plugin.version>2.1.0</assertj-plugin.version>
-        <postgres.version>42.2.5</postgres.version>
+        <postgres.version>42.4.1</postgres.version>
         <shedlock.version>2.5.0</shedlock.version>
         <shedlock.jdbc.version>2.5.0</shedlock.jdbc.version>
 
