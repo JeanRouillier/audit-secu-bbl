@@ -6,7 +6,6 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtClaimAccessor;
 import org.springframework.stereotype.Component;
 
 import java.time.ZonedDateTime;
@@ -17,18 +16,38 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AuditorAwareCustom implements AuditorAware<String>, DateTimeProvider {
 
-  String auditorAware() {
+  Jwt auditorAware() {
     return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
         .map(Authentication::getPrincipal)
         .filter(Jwt.class::isInstance)
         .map(Jwt.class::cast)
-        .map(JwtClaimAccessor::getSubject)
+        .orElse(null);
+  }
+
+  Optional<Jwt> getAuditor() {
+    return Optional.ofNullable(auditorAware());
+  }
+
+  public String getSub() {
+    return getAuditor()
+        //Check Delegated access
+        .map(jwt -> jwt.getClaimAsMap("act"))
+        .map(actor -> (String) actor.get("sub"))
+        //Get sub from Jwt root -> Member Access
+        .orElse(getAuditor()
+            .map(jwt -> jwt.getClaimAsString("sub"))
+            .orElse(getClientId()));
+  }
+
+  private String getClientId() {
+    return getAuditor()
+        .map(jwt -> jwt.getClaimAsString("client_id"))
         .orElse(null);
   }
 
   @Override
   public Optional<String> getCurrentAuditor() {
-    return Optional.of(auditorAware());
+    return Optional.of(getSub());
   }
 
   @Override
