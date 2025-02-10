@@ -4,6 +4,12 @@ server:
   port: 8080
 
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          #login mock
+          issuer-uri: http://localhost:8082
   jackson:
     default-property-inclusion: non_empty
     property-naming-strategy: SNAKE_CASE
