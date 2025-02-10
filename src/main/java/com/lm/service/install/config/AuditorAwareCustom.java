@@ -2,7 +2,6 @@ package com.lm.service.install.config;
 
 import com.lm.service.install.security.AuthenticationFacade;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
 
 @Component
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class AuditorAwareCustom implements AuditorAware<String>, DateTimeProvider {
 
   private AuthenticationFacade authenticationFacade;

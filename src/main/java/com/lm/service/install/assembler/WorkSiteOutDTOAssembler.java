@@ -16,13 +16,14 @@ public class WorkSiteOutDTOAssembler {
     if (e == null) {
       return null;
     }
-    return new WorkSiteOutDTO()
-        .withId(e.getId())
-        .withComment(e.getComment())
-        .withCreatedBy(e.getCreatedBy())
-        .withUpdatedBy(e.getUpdatedBy())
-        .withCreatedAt(e.getCreatedAt())
-        .withUpdatedBy(e.getUpdatedBy())        ;
+    return WorkSiteOutDTO.builder()
+        .id(e.getId())
+        .comment(e.getComment())
+        .createdBy(e.getCreatedBy())
+        .updatedBy(e.getUpdatedBy())
+        .createdAt(e.getCreatedAt())
+        .updatedBy(e.getUpdatedBy())
+        .build();
   }
 
   public List<WorkSiteOutDTO> fromList(List<WorkSite> list) {

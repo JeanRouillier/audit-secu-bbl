@@ -9,7 +9,6 @@ import com.lm.service.install.security.AuthenticationFacade;
 import com.lm.service.install.security.OpenIDUser;
 import lombok.AllArgsConstructor;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,14 +20,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.lm.service.install.config.MDCConfig.TRACING_ID;
+import static com.lm.service.install.config.MDCConfig.TRACING_HEADER;
 import static com.lm.service.install.domain.dto.history.TimelineKeyEnum.USER_IDENTIFICATION;
 import static com.lm.service.install.domain.dto.history.TimelineKeyEnum.USER_NAME;
 import static com.lm.service.install.domain.dto.history.TimelineKeyEnum.WORK_SITE_CREATION_AVAILABILITY_DATE;
 import static com.lm.service.install.domain.dto.history.TimelineKeyEnum.WORK_SITE_CREATION_PRODUCT_AVAILABILITY_DATE;
 
 @Service
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class TimelineServiceImpl {
 
   private TimelineRepository timelineRepository;
@@ -64,19 +63,22 @@ public class TimelineServiceImpl {
   }
 
   private TimelineEvent prepareTimeline(WorkSite s, TimelineKeyEnum timelineEnum) {
-    String correlationId = MDC.get(TRACING_ID);
+    String correlationId = MDC.get(TRACING_HEADER);
     UUID c = correlationId != null ? UUID.fromString(correlationId) : null;
-    return new TimelineEvent()
-        .withType(timelineEnum.getType())
-        .withDate(ZonedDateTime.now())
-        .withWorkSite(s)
-        .withCorrelationId(c);
+    return TimelineEvent.builder()
+        .type(timelineEnum.getType())
+        .date(ZonedDateTime.now())
+        .workSite(s)
+        .correlationId(c)
+        .build();
   }
 
   private TimelineEventMetadata prepareMetadata(TimelineEvent t, String key, String label) {
-    return new TimelineEventMetadata().withEvent(t)
-        .withKey(key)
-        .withLabel(label);
+    return TimelineEventMetadata.builder()
+        .event(t)
+        .key(key)
+        .label(label)
+        .build();
   }
 
   /**

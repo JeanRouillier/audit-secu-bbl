@@ -1,9 +1,9 @@
 package com.lm.service.install.domain.dto.worksite;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Wither;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Wither
+@Builder
 public class WorkSiteOutDTO implements Serializable {
 
   private UUID id;

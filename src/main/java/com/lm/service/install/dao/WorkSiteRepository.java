@@ -15,7 +15,7 @@ public interface WorkSiteRepository extends JpaRepository<WorkSite, UUID> {
 
   @Query(value = "SELECT w FROM WorkSite w " +
       "WHERE w.id = :id ")
-  Optional<WorkSite> getById(@Param("id") UUID id);
+  Optional<WorkSite> getByMyId(@Param("id") UUID id);
 
   @Query(value = "SELECT w FROM WorkSite w ")
   Set<WorkSite> getAll();

@@ -6,20 +6,23 @@ server:
 spring:
   jackson:
     default-property-inclusion: non_empty
-
+    property-naming-strategy: SNAKE_CASE
   jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-    generate-ddl: false
-    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
-    #https://github.com/pgjdbc/pgjdbc/issues/1102
+    database: postgresql
     properties:
       hibernate:
+        types:
+          print:
+            banner: false
         jdbc:
           time_zone: Europe/Paris
           lob:
             non_contextual_creation: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost:5432}/${DB_SCHEMA:postgres}
     username: ${DB_USER:postgres}

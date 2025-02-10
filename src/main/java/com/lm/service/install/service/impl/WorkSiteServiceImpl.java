@@ -5,7 +5,6 @@ import com.lm.service.install.domain.entity.TimelineEvent;
 import com.lm.service.install.domain.entity.WorkSite;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +17,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @Transactional
-@AllArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor
 public class WorkSiteServiceImpl {
 
   private WorkSiteRepository repository;
@@ -26,7 +25,7 @@ public class WorkSiteServiceImpl {
 
   @Transactional(readOnly = true)
   public Optional<WorkSite> getById(UUID id) {
-    return repository.getById(id);
+    return repository.getByMyId(id);
   }
 
   @Transactional(readOnly = true)

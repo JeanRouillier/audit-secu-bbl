@@ -2,8 +2,8 @@ package com.lm.service.install.domain.entity.converter;
 
 import com.lm.service.install.domain.dto.history.TimelineKeyEnum;
 import com.lm.service.install.domain.dto.history.TimelineTypeEnum;
+import jakarta.persistence.AttributeConverter;
 
-import javax.persistence.AttributeConverter;
 
 public class TimelineConverter implements AttributeConverter<TimelineTypeEnum, String> {
 

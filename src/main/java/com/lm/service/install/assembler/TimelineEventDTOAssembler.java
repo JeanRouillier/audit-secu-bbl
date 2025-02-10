@@ -18,11 +18,12 @@ public class TimelineEventDTOAssembler {
     if (h == null) {
       return null;
     }
-    return new TimelineEventDTO()
-        .withDate(h.getDate())
-        .withType(h.getType())
-        .withCorrelationId(h.getCorrelationId())
-        .withMetadata(fromMetadata(h.getMetadata()));
+    return TimelineEventDTO.builder()
+        .date(h.getDate())
+        .type(h.getType())
+        .correlationId(h.getCorrelationId())
+        .metadata(fromMetadata(h.getMetadata()))
+        .build();
   }
 
   private Map<String, String> fromMetadata(List<TimelineEventMetadata> list) {
